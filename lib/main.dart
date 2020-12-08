@@ -2,6 +2,7 @@ import 'package:draw_example/canvas_1.dart';
 import 'package:flutter/material.dart';
 
 import 'canvas_2.dart';
+import 'demo/curve_box.dart';
 import 'demo/dou_dou_people.dart';
 import 'demo/image_color.dart';
 import 'demo/path_run_ball.dart';
@@ -43,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
           //PathRunBallPage
           //ImageColorPage
           //DouDouPage
-          IconButton(icon: Icon(Icons.menu), onPressed: () => goPage(context, child: DouDouPage())),
+          //CurveDemoPage
+          IconButton(icon: Icon(Icons.menu), onPressed: () => goPage(context, child: CurveDemoPage())),
         ],
       ),
       body: Center(

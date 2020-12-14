@@ -2,9 +2,13 @@ import 'package:draw_example/canvas_1.dart';
 import 'package:flutter/material.dart';
 
 import 'canvas_2.dart';
+import 'demo/bezier.dart';
+import 'demo/bezier_drag.dart';
 import 'demo/curve_box.dart';
 import 'demo/dou_dou_people.dart';
+import 'demo/gesture/gesture_widget.dart';
 import 'demo/image_color.dart';
+import 'demo/path_fitting.dart';
 import 'demo/path_run_ball.dart';
 
 void main() {
@@ -45,12 +49,15 @@ class _MyHomePageState extends State<MyHomePage> {
           //ImageColorPage
           //DouDouPage
           //CurveDemoPage
-          IconButton(icon: Icon(Icons.menu), onPressed: () => goPage(context, child: CurveDemoPage())),
+          //GestureWidget
+          //BezierDragPage
+          IconButton(
+              icon: Icon(Icons.menu), onPressed: () => goPage(context, child: BezierDragPage())),
         ],
       ),
       body: Center(
         child: CustomPaint(
-          painter: MPainter2(),
+          painter: BezierPainter(),
           size: MediaQuery.of(context).size,
         ),
       ),

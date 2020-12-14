@@ -13,10 +13,6 @@ class MPainter2 extends CustomPainter {
     final double radius = size.width / 2;
   }
 
-  void drawHead(Canvas canvas, Size size) {
-    
-  }
-
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

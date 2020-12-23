@@ -95,9 +95,11 @@ class _BezierDragPainter extends CustomPainter {
     position = repaint.points.map((e) => e.translate(-size.width / 2, -size.height / 2)).toList();
 
     final path = Path();
+    //如果选了小于九单纯画点
     if (position.length < 3) {
       canvas.drawPoints(PointMode.points, position, _positionPaint);
     } else {
+
       path.moveTo(position.first.dx, position.first.dy);
       path.quadraticBezierTo(position[1].dx, position[1].dy, position[2].dx, position[2].dy);
       canvas.drawPath(path, _linePaint);

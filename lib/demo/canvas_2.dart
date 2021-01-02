@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'coordinate_canvas.dart';
+import '../coordinate_canvas.dart';
 
 class MPainter2 extends CustomPainter {
   final CoordinateCanvas coordinateCanvas = CoordinateCanvas(step: 25);

@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   image: 2.1.19
+  dio: any
 
 
   # The following adds the Cupertino Icons font to your application.

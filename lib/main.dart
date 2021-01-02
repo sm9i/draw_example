@@ -1,10 +1,14 @@
-import 'package:draw_example/canvas_1.dart';
+import 'demo/particle/screen.dart';
+import 'demo/test_page.dart';
+import 'file:///E:/flutter_application/draw_example/lib/demo/canvas_1.dart';
 import 'package:flutter/material.dart';
 
-import 'canvas_2.dart';
+import 'demo/canvas_2.dart';
 import 'demo/bezier.dart';
 import 'demo/bezier_drag.dart';
+import 'demo/chart/chart2_page.dart';
 import 'demo/chart/chart_page.dart';
+import 'demo/chart/china.dart';
 import 'demo/curve_box.dart';
 import 'demo/dou_dou_people.dart';
 import 'demo/gesture/gesture_widget.dart';
@@ -55,12 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
           //BezierDragPage
           //LoadingPage
           //ChartPage
-          IconButton(icon: Icon(Icons.menu), onPressed: () => goPage(context, child: ChartPage())),
+          //ChinaPage
+          //TestPage
+          //ParticleScreen
+          IconButton(icon: Icon(Icons.menu), onPressed: () => goPage(context, child: ParticleScreen())),
         ],
       ),
       body: Center(
         child: CustomPaint(
-          painter: BezierPainter(),
+          painter:  ChartPainter3(),
           size: MediaQuery.of(context).size,
         ),
       ),

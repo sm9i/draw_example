@@ -8,6 +8,7 @@ import 'demo/curve_box.dart';
 import 'demo/dou_dou_people.dart';
 import 'demo/gesture/gesture_widget.dart';
 import 'demo/image_color.dart';
+import 'demo/loading_widget.dart';
 import 'demo/path_fitting.dart';
 import 'demo/path_run_ball.dart';
 
@@ -57,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: CustomPaint(
-          painter: BezierPainter(),
+          painter: loadingPainter,
           size: MediaQuery.of(context).size,
         ),
       ),

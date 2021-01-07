@@ -45,7 +45,7 @@ class _BezierDragPageState extends State<BezierDragPage> {
   void onUpdate(DragUpdateDetails details) => judgeSelect(details.localPosition, update: true);
 
   void onDown(DragDownDetails details) {
-    if (touchInfo.points.length < 3) {
+    if (touchInfo.points.length < 4) {
       touchInfo.addPoints(details.localPosition);
     } else {
       judgeSelect(details.localPosition);
@@ -55,9 +55,8 @@ class _BezierDragPageState extends State<BezierDragPage> {
   //判断当前选中的点
   void judgeSelect(Offset src, {bool update = false}) {
     for (int i = 0; i < touchInfo.points.length; i++) {
-      if (judgeCircleArea(src, touchInfo.points[i], 5)) {
+      if (judgeCircleArea(src, touchInfo.points[i], 20)) {
         touchInfo.selectIndex = i;
-        //?
         if (update) {
           touchInfo.updatePoint(i, src);
         }
@@ -66,7 +65,7 @@ class _BezierDragPageState extends State<BezierDragPage> {
   }
 
   //判断点是否在 r为半径的圆内
-  bool judgeCircleArea(Offset src, Offset dst, double r) => (src - dst).direction <= r;
+  bool judgeCircleArea(Offset src, Offset dst, double r) => (src - dst).distance <= r;
 }
 
 class _BezierDragPainter extends CustomPainter {
@@ -83,6 +82,10 @@ class _BezierDragPainter extends CustomPainter {
     ..strokeWidth = 10;
   final Paint _linePaint = Paint()
     ..color = Colors.blue
+    ..strokeWidth = 2
+    ..style = PaintingStyle.stroke;
+  final Paint _helpPaint = Paint()
+    ..color = Colors.redAccent
     ..strokeWidth = 1
     ..style = PaintingStyle.stroke;
 
@@ -95,18 +98,38 @@ class _BezierDragPainter extends CustomPainter {
     position = repaint.points.map((e) => e.translate(-size.width / 2, -size.height / 2)).toList();
 
     final path = Path();
-    if (position.length < 3) {
+    if (position.length < 4) {
       canvas.drawPoints(PointMode.points, position, _positionPaint);
     } else {
       path.moveTo(position.first.dx, position.first.dy);
-      path.quadraticBezierTo(position[1].dx, position[1].dy, position[2].dx, position[2].dy);
+      // path.quadraticBezierTo(position[1].dx, position[1].dy, position[2].dx, position[2].dy);
+      path.cubicTo(position[1].dx, position[1].dy, position[2].dx, position[2].dy,position[3].dx, position[3].dy);
       canvas.drawPath(path, _linePaint);
+      _drawHelp(canvas);
+      _drawSelectPos(canvas, size);
     }
   }
 
   @override
   bool shouldRepaint(covariant _BezierDragPainter oldDelegate) {
     return oldDelegate.repaint != repaint;
+  }
+
+  void _drawHelp(Canvas canvas) {
+    canvas.drawPoints(PointMode.polygon, position, _helpPaint..strokeWidth = 1);
+    canvas.drawPoints(PointMode.points, position, _helpPaint..strokeWidth = 8);
+  }
+
+  void _drawSelectPos(Canvas canvas, Size size) {
+    Offset selectPos = repaint.selectPoint;
+    if (selectPos == null) return;
+    selectPos = selectPos.translate(-size.width / 2, -size.height / 2);
+    canvas.drawCircle(
+        selectPos,
+        10,
+        _linePaint
+          ..color = Colors.green
+          ..strokeWidth = 2);
   }
 }
 

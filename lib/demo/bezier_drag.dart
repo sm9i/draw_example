@@ -42,7 +42,8 @@ class _BezierDragPageState extends State<BezierDragPage> {
     );
   }
 
-  void onUpdate(DragUpdateDetails details) => judgeSelect(details.localPosition, update: true);
+  void onUpdate(DragUpdateDetails details) =>
+      judgeSelect(details.localPosition, update: true);
 
   void onDown(DragDownDetails details) {
     if (touchInfo.points.length < 4) {
@@ -65,7 +66,8 @@ class _BezierDragPageState extends State<BezierDragPage> {
   }
 
   //判断点是否在 r为半径的圆内
-  bool judgeCircleArea(Offset src, Offset dst, double r) => (src - dst).distance <= r;
+  bool judgeCircleArea(Offset src, Offset dst, double r) =>
+      (src - dst).distance <= r;
 }
 
 class _BezierDragPainter extends CustomPainter {
@@ -95,15 +97,20 @@ class _BezierDragPainter extends CustomPainter {
     canvas.translate(size.width / 2, size.height / 2);
     coordinateCanvas.paint(canvas, size);
     //点转为以中点为坐标的点
-    position = repaint.points.map((e) => e.translate(-size.width / 2, -size.height / 2)).toList();
+    position = repaint.points
+        .map((e) => e.translate(-size.width / 2, -size.height / 2))
+        .toList();
 
     final path = Path();
-    if (position.length < 4) {
+
+    //如果选了小于九单纯画点
+    if (position.length < 3) {
       canvas.drawPoints(PointMode.points, position, _positionPaint);
     } else {
       path.moveTo(position.first.dx, position.first.dy);
       // path.quadraticBezierTo(position[1].dx, position[1].dy, position[2].dx, position[2].dy);
-      path.cubicTo(position[1].dx, position[1].dy, position[2].dx, position[2].dy,position[3].dx, position[3].dy);
+      path.cubicTo(position[1].dx, position[1].dy, position[2].dx,
+          position[2].dy, position[3].dx, position[3].dy);
       canvas.drawPath(path, _linePaint);
       _drawHelp(canvas);
       _drawSelectPos(canvas, size);

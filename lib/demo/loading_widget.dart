@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+class LoadingPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('loading demo '),
+      ),
+      body: LoadingWidget(),
+    );
+  }
+}
+
 class LoadingWidget extends StatefulWidget {
   @override
   _LoadingWidgetState createState() => _LoadingWidgetState();
@@ -10,7 +26,8 @@ class _LoadingWidgetState extends State<LoadingWidget> with SingleTickerProvider
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 500))..repeat();
+
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 600))..repeat();
     super.initState();
   }
 
@@ -22,51 +39,59 @@ class _LoadingWidgetState extends State<LoadingWidget> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('data'),
+
+    return Center(
+      child: CustomPaint(
+        painter: _LoadingPainter(CurveTween(curve: Curves.linear).animate(_controller)),
       ),
     );
   }
 }
 
-CustomPainter get loadingPainter => _LoadingPainter();
 
 class _LoadingPainter extends CustomPainter {
-  _LoadingPainter({
-    this.width = 80,
-    this.height = 20,
-    this.warpHeight = 100,
-  });
-
-  final double width;
-  final double height;
-  final double warpHeight;
+  _LoadingPainter(this.repaint) : super(repaint: repaint);
+  double waveWidth = 100;
+  double waveHeight = 10;
+  final Animation<double> repaint;
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.translate(size.width / 2, size.height / 2);
-    final Paint paint = Paint()
-      ..color = Colors.blueAccent
+
+    canvas.clipRect(Rect.fromCenter(center: Offset(waveWidth, 0), width: waveWidth*2 , height: 200));
+
+    Paint paint = Paint()
+      ..color = Colors.orange
       ..style = PaintingStyle.fill
       ..strokeWidth = 2;
-    final Path path = Path();
 
-    canvas.translate(-2 * width, 0);
-    path.relativeQuadraticBezierTo(width / 2, -height * 2, width, 0);
-    path.relativeQuadraticBezierTo(width / 2, height * 2, width, 0);
-    path.relativeQuadraticBezierTo(width / 2, -height * 2, width, 0);
-    path.relativeQuadraticBezierTo(width / 2, height * 2, width, 0);
-    //包裹下面的
-    path.relativeLineTo(0, warpHeight);
-    //左边
-    path.relativeLineTo(-width * 2 * 2.0, 0);
+    Path path = getWavePath();
+    canvas.translate(-4 * waveWidth + 2 * waveWidth * repaint.value, 0);
+    canvas.drawPath(path, paint..color = Colors.orange);
+
+    canvas.translate(2*waveWidth* repaint.value, 0);
+    canvas.drawPath(path, paint..color = Colors.orange.withAlpha(88));
+
+  }
+
+  Path getWavePath() {
+    Path path = Path();
+    path.moveTo(0, 0);
+    path.relativeQuadraticBezierTo( waveWidth / 2, -waveHeight * 2, waveWidth, 0);
+    path.relativeQuadraticBezierTo( waveWidth / 2, waveHeight * 2, waveWidth, 0);
+    path.relativeQuadraticBezierTo( waveWidth / 2, -waveHeight * 2, waveWidth, 0);
+    path.relativeQuadraticBezierTo( waveWidth / 2, waveHeight * 2, waveWidth, 0);
+    path.relativeQuadraticBezierTo( waveWidth / 2, -waveHeight * 2, waveWidth, 0);
+    path.relativeQuadraticBezierTo(  waveWidth / 2, waveHeight * 2, waveWidth, 0);
+    path.relativeLineTo(0, 80);
+    path.relativeLineTo(-waveWidth * 3 * 2, 0);
     path.close();
-    canvas.drawPath(path, paint..style = PaintingStyle.fill);
+    return path;
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(covariant _LoadingPainter oldDelegate) {
+    return oldDelegate.repaint != repaint;
   }
 }

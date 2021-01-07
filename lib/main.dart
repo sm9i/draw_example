@@ -1,3 +1,6 @@
+import 'package:flutter/services.dart';
+
+import 'demo/bezier_fitting.dart';
 import 'demo/particle/screen.dart';
 import 'demo/test_page.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,12 @@ import 'demo/path_fitting.dart';
 import 'demo/path_run_ball.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeRight,
+
+  ]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(MyApp());
 }
 
@@ -61,12 +70,16 @@ class _MyHomePageState extends State<MyHomePage> {
           //ChinaPage
           //TestPage
           //ParticleScreen
-          IconButton(icon: Icon(Icons.menu), onPressed: () => goPage(context, child: ParticleScreen())),
+          //BezierFittingPage
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () => goPage(context, child: BezierFittingPage()),
+          ),
         ],
       ),
       body: Center(
         child: CustomPaint(
-          painter:  ChartPainter3(),
+          painter: ChartPainter3(),
           size: MediaQuery.of(context).size,
         ),
       ),

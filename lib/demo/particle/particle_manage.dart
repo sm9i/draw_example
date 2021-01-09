@@ -40,6 +40,7 @@ class ParticleManage extends ChangeNotifier {
         );
         particles.add(p);
         particle.size = newSize;
+
         particle.vx = -particle.vx;
       }
     }

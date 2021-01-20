@@ -1,7 +1,9 @@
+import 'package:draw_example/demo/example/example_1.dart';
 import 'package:flutter/services.dart';
 
 import 'demo/bezier_fitting.dart';
 import 'demo/particle/screen.dart';
+import 'demo/polygon/polygon_page.dart';
 import 'demo/test_page.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +24,7 @@ import 'demo/path_run_ball.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeRight,
-
+    DeviceOrientation.portraitUp,
   ]);
   SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(MyApp());
@@ -71,15 +72,17 @@ class _MyHomePageState extends State<MyHomePage> {
           //TestPage
           //ParticleScreen
           //BezierFittingPage
+          //PolygonPage
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () => goPage(context, child: BezierFittingPage()),
+            onPressed: () => goPage(context, child: PolygonPage()),
           ),
         ],
       ),
       body: Center(
         child: CustomPaint(
-          painter: ChartPainter3(),
+          painter: CircularBezierPainter(),
+          // painter: ChartPainter3(),
           size: MediaQuery.of(context).size,
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'demo/bezier_fitting.dart';
 import 'demo/particle/screen.dart';
 import 'demo/polygon/polygon_page.dart';
+import 'demo/random/random_bg_page.dart';
 import 'demo/test_page.dart';
 import 'package:flutter/material.dart';
 
@@ -73,9 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
           //ParticleScreen
           //BezierFittingPage
           //PolygonPage
+          //RandomBgPage
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () => goPage(context, child: PolygonPage()),
+            onPressed: () => goPage(context, child: RandomBgPage()),
           ),
         ],
       ),

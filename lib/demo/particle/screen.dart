@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:draw_example/demo/particle/particle.dart';
 import 'package:draw_example/demo/particle/particle_manage.dart';
 import 'package:draw_example/demo/particle/particle_painter.dart';
+import 'package:draw_example/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';

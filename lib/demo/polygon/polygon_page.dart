@@ -41,12 +41,7 @@ class _PolygonPageState extends State<PolygonPage>
                 size: Size(200, 200),
               ),
             ),
-            RaisedButton(onPressed: () {
-              if (_controller.isAnimating || _controller.isCompleted) {
-                _controller.reset();
-              }
-              _controller.forward();
-            })
+            RaisedButton(onPressed: () {})
           ],
         ),
       ),

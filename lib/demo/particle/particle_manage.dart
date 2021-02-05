@@ -1,4 +1,5 @@
 import 'package:draw_example/demo/particle/particle.dart';
+import 'package:draw_example/helper.dart';
 import 'package:flutter/material.dart';
 
 class ParticleManage extends ChangeNotifier {

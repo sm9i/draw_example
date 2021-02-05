@@ -36,16 +36,3 @@ class Particle {
     );
   }
 }
-final random = Random();
-
-Color randomRGB({
-  int limitR = 0,
-  int limitG = 0,
-  int limitB = 0,
-}) {
-  var r = limitR + random.nextInt(256 - limitR); //红值
-  var g = limitG + random.nextInt(256 - limitG); //绿值
-  var b = limitB + random.nextInt(256 - limitB); //蓝值
-  return Color.fromARGB(255, r, g, b); //生成argb模式的颜色
-}
-
